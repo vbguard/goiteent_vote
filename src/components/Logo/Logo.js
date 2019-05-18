@@ -9,6 +9,12 @@ const LogoLink = styled.a.attrs({
   justify-content: center;
   color: none;
   cursor: pointer;
+
+  @media (min-width: 1200px) {
+    position: absolute;
+    top: 30px;
+    left: 0;
+  }
 `;
 const LogoImage = styled(ImageLogo)`
   width: 114px;

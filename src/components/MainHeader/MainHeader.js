@@ -3,16 +3,22 @@ import styled from "styled-components";
 
 import Logo from "../Logo/Logo";
 
-import img from "../../assets/images/gameOfTeens.png";
-import img2x from "../../assets/images/gameOfTeens@2x.png";
-import img3x from "../../assets/images/gameOfTeens@3x.png";
-import imgText from "../../assets/images/fireTextPodiya.png";
-import imgText2x from "../../assets/images/fireTextPodiya@2x.png";
-import imgText3x from "../../assets/images/fireTextPodiya@3x.png";
+// import img from "../../assets/images/gameOfTeens.png";
+// import img2x from "../../assets/images/gameOfTeens@2x.png";
+// import img3x from "../../assets/images/gameOfTeens@3x.png";
+// import imgText from "../../assets/images/fireTextPodiya.png";
+// import imgText2x from "../../assets/images/fireTextPodiya@2x.png";
+// import imgText3x from "../../assets/images/fireTextPodiya@3x.png";
 import textOverlay from "../../assets/images/fireTextPodiya.jpg";
 
+// import img720 from "../../assets/images/720/game-of-teens720.png";
+// import img720_2x from "../../assets/images/720/game-of-teens720@2x.png";
+// import img720_3x from "../../assets/images/720/game-of-teens720@3x.png";
+
+import imgText1200 from "../../assets/images/1200/Game of Teens logo1200@3x.png";
+
 const Header = styled.header`
-  width: 100vw;
+  width: 100%;
   background: #061117;
   padding-bottom: 36px;
   padding-top: 32px;
@@ -21,6 +27,18 @@ const Header = styled.header`
   display: flex;
   flex-direction: column;
   align-items: center;
+
+  @media (min-width: 768px) {
+    padding-bottom: 20px;
+    background: transparent;
+  }
+
+  @media (min-width: 1200px) {
+    width: 1060px;
+    margin: 0 auto;
+    padding: 30px 0;
+    position: relative;
+  }
 `;
 
 const MainHeaderTitle = styled.h1`
@@ -28,14 +46,29 @@ const MainHeaderTitle = styled.h1`
   margin-bottom: 34px;
   padding: 0;
   text-align: center;
-  z-index: 100;
+
+  @media (min-width: 1200px) {
+    margin-top: 0;
+    margin-bottom: 24px;
+  }
 `;
 
 const MainHeaderTitleImage = styled.img.attrs({
-  src: img3x,
-  srcSet: `${img} 1x, ${img2x} 2x, ${img3x} 3x`,
+  src: imgText1200,
+  // srcSet: `${img} 1x, ${img2x} 2x, ${img3x} 3x`,
   alt: "Game Of Teens"
-})``;
+})`
+  @media (min-width: 768px) {
+    width: 530px;
+    height: 90px;
+  }
+
+  @media (min-width: 1200px) {
+    width: 590px;
+    height: 90px;
+    margin-top: 0;
+  }
+`;
 
 const MainHeaderSubTitle = styled.h2`
   margin: 0;
@@ -54,13 +87,28 @@ const MainHeaderSubTitle = styled.h2`
   -webkit-text-fill-color: transparent;
   -webkit-background-clip: text;
   mix-blend-mode: screen;
+  text-transform: uppercase;
+
+  @media (min-width: 768px) {
+    width: 260px;
+    height: 25px;
+    text-align: center;
+    font-size: 23px;
+  }
+
+  @media (min-width: 1200px) {
+    width: 260px;
+    height: 25px;
+    text-align: center;
+    font-size: 23px;
+  }
 `;
 
-const MainHeaderSubTitleImage = styled.img.attrs({
-  src: imgText3x,
-  srcSet: `${imgText} 1x, ${imgText2x} 2x, ${imgText3x} 3x`,
-  alt: "Game Of Teens"
-})``;
+// const MainHeaderSubTitleImage = styled.img.attrs({
+//   src: imgText3x,
+//   srcSet: `${imgText} 1x, ${imgText2x} 2x, ${imgText3x} 3x`,
+//   alt: "Game Of Teens"
+// })``;
 
 const Text = styled.p`
   color: #a7b7c8;
@@ -71,6 +119,20 @@ const Text = styled.p`
   font-family: GetVoIPGrotesque;
   font-weight: 400;
   text-transform: uppercase;
+
+  @media (min-width: 768px) {
+    width: 526px;
+    text-align: center;
+    font-size: 14px;
+    margin: 30px 0 30px 0;
+  }
+
+  @media (min-width: 1200px) {
+    width: 526px;
+    text-align: center;
+    font-size: 14px;
+    margin: 35px 0 25px 0;
+  }
 `;
 
 const ListStyled = styled.ul`
@@ -81,6 +143,12 @@ const ListStyled = styled.ul`
   flex-direction: column;
   justify-content: center;
   align-content: center;
+
+  @media (min-width: 1200px) {
+    width: 1060px;
+    flex-direction: row;
+    justify-content: space-between;
+  }
 `;
 
 const ListItemStyled = styled.li`
@@ -98,6 +166,25 @@ const ListItemStyled = styled.li`
   margin-bottom: 12px;
   &:last-child {
     margin-bottom: 0;
+  }
+
+  @media (min-width: 768px) {
+    max-width: 530px;
+    text-align: left;
+  }
+
+  @media (min-width: 1200px) {
+    &:nth-child(1) {
+      width: 270px;
+    }
+
+    &:nth-child(2) {
+      width: 455px;
+    }
+
+    &:nth-child(3) {
+      width: 175px;
+    }
   }
 `;
 
@@ -118,7 +205,7 @@ const MainHeader = () => (
       {/* <MainHeaderSubTitleImage /> */}
     </MainHeaderSubTitle>
     <Text>
-      Вже 1 червня розпочнеться грандіозна битва 4-х королівств та розіграш{" "}
+      Вже 1 червня розпочнеться грандіозна битва 4-х королівств та розіграш
       <span style={{ color: "#00b6f5" }}> play station 4</span>
     </Text>
     <ListStyled>

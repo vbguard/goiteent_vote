@@ -6,6 +6,13 @@ const ListStyled = styled.ul`
   list-style: none;
   margin: 0;
   padding: 0;
+
+  @media (min-width: 1200px) {
+    width: 1060px;
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+  }
 `;
 
 const ListCommands = props => (
