@@ -10,6 +10,10 @@ const Footer = styled.footer`
   justify-content: center;
   align-items: center;
   height: 121px;
+
+  @media (min-width: 1200px) {
+    flex-direction: row;
+  }
 `;
 
 const Text = styled.p`
@@ -21,6 +25,13 @@ const Text = styled.p`
   font-size: 9px;
   font-family: GetVoIPGrotesque;
   font-weight: 400;
+  text-transform: uppercase;
+  margin-bottom: 10.5px;
+
+  @media (min-width: 1200px) {
+    margin-bottom: 0;
+    margin-right: 20px;
+  }
 `;
 
 const StyledListSocial = styled.ul`
@@ -35,9 +46,9 @@ const StyledSocialLink = styled.a`
 `;
 
 const StyledListSocialItem = styled.li`
-&:first-child {
-  margin-right: 16px;
-}
+  &:first-child {
+    margin-right: 16px;
+  }
 `;
 
 const StyledFacebookIcon = styled(FacebookIcon)`

@@ -8,16 +8,35 @@ import styled from "styled-components";
 
 const Wrapper = styled.div`
   position: fixed;
+  z-index: 100;
   top: 0;
   left: 0;
-  width: 100vw;
+  width: 100%;
   height: 100vh;
   background-color: #ffffff;
+
+  @media (min-width: 768px) {
+    background-color: rgba(0, 9, 16, 0.47);
+  }
 `;
 
 const StyledContainer = styled.div`
   padding-left: 12px;
   padding-right: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  @media (min-width: 768px) {
+    width: 590px;
+    margin: 0 auto;
+    background-color: white;
+    padding: 54px 72px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
 `;
 
 const StyledTitle = styled.h1`
@@ -46,7 +65,7 @@ const StyledButton = styled(({ color, ...other }) => (
   background: linear-gradient(45deg, #fec240 30%, #fec240 90%);
   border: 0;
   color: white;
-  width: 150px;
+  width: 236px;
   height: 48px;
   padding: 0 30px;
   box-shadow: 4px 6.9px 16px 0 rgba(29, 35, 45, 0.38);
@@ -58,6 +77,10 @@ const StyledButton = styled(({ color, ...other }) => (
     color: #080f13;
     letter-spacing: 0.81px;
     line-height: 1.5;
+  }
+
+  @media (min-width: 768px) {
+    width: 236px;
   }
 `;
 
@@ -90,7 +113,15 @@ const VoteForm = ({
     <StyledContainer>
       <StyledTitle>{chosenCommand.title}</StyledTitle>
       <StyledSubTitle>{chosenCommand.projectName}</StyledSubTitle>
-      <form onSubmit={handleSubmitVoteForm}>
+      <form
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          width: "100%"
+        }}
+        onSubmit={handleSubmitVoteForm}
+      >
         <FormControl margin="normal" required fullWidth>
           <InputLabel htmlFor="name">Iм'я та прізвище</InputLabel>
           <Input
@@ -125,12 +156,7 @@ const VoteForm = ({
             inputComponent={TextMaskCustom}
           />
         </FormControl>
-        <StyledButton
-          type="submit"
-          fullWidth
-          variant="contained"
-          color="primary"
-        >
+        <StyledButton type="submit" variant="contained" color="primary">
           голосувати та отримати безкоштовний квиток
         </StyledButton>
       </form>

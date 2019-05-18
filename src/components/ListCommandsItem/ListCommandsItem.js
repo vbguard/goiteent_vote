@@ -15,6 +15,60 @@ const ListItem = styled.li`
   &:nth-child(2n) {
     background-color: #1d232d;
   }
+
+  @media (min-width: 768px) {
+    width: 530px;
+    margin: 0 auto;
+    padding: 15px;
+    flex-direction: row;
+    justify-content: space-between;
+    border: 1px rgb(0, 183, 248) solid;
+    border-bottom: none;
+
+    &:nth-child(4n) {
+      border-bottom: 1px rgb(0, 183, 248) solid;
+    }
+  }
+
+  @media (min-width: 1200px) {
+    width: 530px;
+    margin: 0 auto;
+    padding: 15px;
+    flex-direction: row;
+    justify-content: space-between;
+    border: 1px rgb(0, 183, 248) solid;
+    border-bottom: none;
+
+    &:nth-child(4n) {
+      border-bottom: 1px rgb(0, 183, 248) solid;
+    }
+
+    &:nth-child(3n) {
+      border-bottom: 1px rgb(0, 183, 248) solid;
+    }
+
+    &:nth-child(1) {
+      border-right: none;
+    }
+
+    &:nth-child(3) {
+      border-right: none;
+    }
+  }
+`;
+
+const TextContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  @media (min-width: 768px) {
+    width: 305px;
+    height: 145px;
+    flex-direction: column;
+    align-items: flex-start;
+    position: relative;
+  }
 `;
 
 const Image = styled.img`
@@ -23,6 +77,11 @@ const Image = styled.img`
   box-shadow: 1.5px 2.6px 10px 0 rgba(1, 1, 0, 0.2);
   background-color: #00b6f5;
   object-fit: contain;
+
+  @media (min-width: 768px) {
+    width: 180px;
+    height: 145px;
+  }
 `;
 
 const Title = styled.h3`
@@ -31,11 +90,16 @@ const Title = styled.h3`
   line-height: 1.5;
   text-align: left;
   font-size: 12px;
-  font-family: GetVoIPGrotesque;
+  font-family: "GetVoIPGrotesque", sans-serif;
   font-weight: 400;
   margin: 0;
   margin-top: 20px;
   margin-bottom: 12px;
+  text-transform: uppercase;
+
+  @media (min-width: 768px) {
+    margin: 0 0 0.3rem 0;
+  }
 `;
 
 const SubTitle = styled.h4`
@@ -48,6 +112,11 @@ const SubTitle = styled.h4`
   font-weight: 700;
   margin: 0;
   margin-bottom: 14px;
+
+  @media (min-width: 768px) {
+    margin: 0 0 0.5rem 0;
+    text-align: left;
+  }
 `;
 
 const ListTeam = styled.ul`
@@ -55,6 +124,10 @@ const ListTeam = styled.ul`
   margin: 0;
   margin-bottom: 20px;
   padding: 0;
+
+  @media (min-width: 768px) {
+    margin-bottom: 0;
+  }
 `;
 
 const ListTeamItem = styled.li``;
@@ -68,6 +141,10 @@ const ListTeamItemText = styled.h5`
   font-size: 12px;
   font-family: Roboto;
   font-weight: 300;
+
+  @media (min-width: 768px) {
+    text-align: left;
+  }
 `;
 
 const StyledButton = styled(({ color, ...other }) => (
@@ -89,6 +166,11 @@ const StyledButton = styled(({ color, ...other }) => (
     letter-spacing: 0.81px;
     line-height: 1.5;
   }
+
+  @media (min-width: 768px) {
+    bottom: 60px;
+    left: 155px;
+  }
 `;
 
 const VoteText = styled.p`
@@ -100,28 +182,37 @@ const VoteText = styled.p`
   font-size: 14px;
   font-family: GetVoIPGrotesque;
   font-weight: 400;
+
+  @media (min-width: 768px) {
+    position: absolute;
+    bottom: 0;
+    right: 35px;
+    margin: 0;
+  }
 `;
 
 const ListCommandsItem = props => {
   return (
     <ListItem key={props._id}>
       <Image src={props.image} alt={props.title} />
-      <Title>{props.title}</Title>
-      <SubTitle>{props.projectName}</SubTitle>
-      <ListTeam>
-        {props.teams.map(member => (
-          <ListTeamItem key={member}>
-            <ListTeamItemText>{member}</ListTeamItemText>
-          </ListTeamItem>
-        ))}
-      </ListTeam>
-      <StyledButton
-        type="button"
-        onClick={e => props.handlerOnClickVote(e, props._id)}
-      >
-        {"проголосувати та отримати квиток"}
-      </StyledButton>
-      <VoteText>{props.voted} голоса</VoteText>
+      <TextContainer>
+        <Title>{props.title}</Title>
+        <SubTitle>{props.projectName}</SubTitle>
+        <ListTeam>
+          {props.teams.map(member => (
+            <ListTeamItem key={member}>
+              <ListTeamItemText>{member}</ListTeamItemText>
+            </ListTeamItem>
+          ))}
+        </ListTeam>
+        <StyledButton
+          type="button"
+          onClick={e => props.handlerOnClickVote(e, props._id)}
+        >
+          {"проголосувати та отримати квиток"}
+        </StyledButton>
+        <VoteText>{props.voted} голосів</VoteText>
+      </TextContainer>
     </ListItem>
   );
 };

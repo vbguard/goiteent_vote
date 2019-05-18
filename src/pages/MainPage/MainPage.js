@@ -13,6 +13,8 @@ import SnackbarContent from "@material-ui/core/SnackbarContent";
 
 import bgImage3x from "../../assets/images/bgImage@3x.png";
 import bgOverlay from "../../assets/images/bgOverlay.png";
+import bgImag1200 from "../../assets/images/1200/bg1200.png";
+import bgOverlay1200 from "../../assets/images/1200/overlay1200.png";
 
 const StyledMainPage = styled.div``;
 
@@ -23,6 +25,15 @@ const MainWrapper = styled.div`
   background-position: center, center;
   background-size: cover, cover;
   position: relative;
+
+  @media (min-width: 1200px) {
+    background: url(${bgOverlay1200}), url(${bgImag1200});
+    background-blend-mode: overlay, normal;
+    background-repeat: no-repeat, no-repeat;
+    background-position: center, center;
+    background-size: cover, cover;
+    position: relative;
+  }
 `;
 
 class MainPage extends Component {
@@ -96,6 +107,12 @@ class MainPage extends Component {
     });
   };
 
+  // handleCloseModal = () => {
+  //   this.setState({
+  //     isModalOpen: false;
+  //   })
+  // };
+
   render() {
     const {
       commands,
@@ -133,23 +150,22 @@ class MainPage extends Component {
             ]}
           />
         </Snackbar>
-        {isModalOpen ? (
+        {isModalOpen && (
           <VoteForm
             successVote={successVote}
             chosenCommand={chosenCommand}
             handleSubmitVoteForm={this.handleSubmitVoteForm}
             handleOnChangeFormFields={this.handleOnChangeFormFields}
           />
-        ) : (
-          <MainWrapper>
-            <MainHeader />
-            <ListCommands
-              commands={commands}
-              handlerOnClickVote={this.handlerOnClickVote}
-            />
-            <MainFooter />
-          </MainWrapper>
         )}
+        <MainWrapper>
+          <MainHeader />
+          <ListCommands
+            commands={commands}
+            handlerOnClickVote={this.handlerOnClickVote}
+          />
+          <MainFooter />
+        </MainWrapper>
       </StyledMainPage>
     );
   }
