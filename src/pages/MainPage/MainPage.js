@@ -11,7 +11,6 @@ import Snackbar from "@material-ui/core/Snackbar";
 import SnackbarContent from "@material-ui/core/SnackbarContent";
 import Modal from "@material-ui/core/Modal";
 
-import bgImage3x from "../../assets/images/bgImage@3x.png";
 import bgOverlay from "../../assets/images/bgOverlay.png";
 import bgImag1200 from "../../assets/images/1200/bg1200.png";
 import bgOverlay1200 from "../../assets/images/1200/overlay1200.png";
@@ -19,13 +18,14 @@ import bgOverlay1200 from "../../assets/images/1200/overlay1200.png";
 const StyledMainPage = styled.div``;
 
 const MainWrapper = styled.div`
-  background: url(${bgOverlay}), url(${bgImage3x});
-  background-blend-mode: overlay, normal;
-  background-repeat: no-repeat, no-repeat;
-  background-position: center, center;
-  background-size: cover, cover;
-  position: relative;
-
+  @media (min-width: 768px) {
+    background: url(${bgOverlay}), url(${bgImag1200});
+    background-blend-mode: overlay, normal;
+    background-repeat: no-repeat, no-repeat;
+    background-position: center, center;
+    background-size: cover, cover;
+    position: relative;
+  }
   @media (min-width: 1200px) {
     background: url(${bgOverlay1200}), url(${bgImag1200});
     background-blend-mode: overlay, normal;

@@ -4,13 +4,19 @@ import styled from "styled-components";
 import facebookIcon from "../../assets/images/icons/facebook.png";
 import instagramIcon from "../../assets/images/icons/instagram.png";
 
+import bgImage from "../../assets/images/mobile_footer_bg.png";
+
 const Footer = styled.footer`
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   height: 121px;
+  background-image: url(${bgImage});
 
+  @media (min-width: 768px) {
+    background-image: none;
+  }
   @media (min-width: 1200px) {
     flex-direction: row;
   }
