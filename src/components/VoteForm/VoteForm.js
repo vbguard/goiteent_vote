@@ -4,31 +4,23 @@ import MaskedInput from "react-text-mask";
 import FormControl from "@material-ui/core/FormControl";
 import Input from "@material-ui/core/Input";
 import InputLabel from "@material-ui/core/InputLabel";
+import CloseIcon from "@material-ui/icons/Close";
+import IconButton from "@material-ui/core/IconButton";
 import styled from "styled-components";
-
-const Wrapper = styled.div`
-  position: fixed;
-  z-index: 100;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100vh;
-  background-color: #ffffff;
-
-  @media (min-width: 768px) {
-    background-color: rgba(0, 9, 16, 0.47);
-  }
-`;
+import MuiPhoneInput from "material-ui-phone-number";
 
 const StyledContainer = styled.div`
-  padding-left: 12px;
-  padding-right: 12px;
+  padding: 42px 12px 12px 12px;
   display: flex;
   flex-direction: column;
   align-items: center;
+  background-color: #ffffff;
+  height: 100vh;
+  position: relative;
 
   @media (min-width: 768px) {
     width: 590px;
+    height: 464px;
     margin: 0 auto;
     background-color: white;
     padding: 54px 72px;
@@ -79,14 +71,36 @@ const StyledButton = styled(({ color, ...other }) => (
     line-height: 1.5;
   }
 
-  @media (min-width: 768px) {
-    width: 236px;
+  && {
+    margin-top: 26px;
+  }
+
+  && {
+    @media (min-width: 768px) {
+      width: 236px;
+      margin-top: 30px;
+    }
+  }
+`;
+
+const StyledIconButton = styled(IconButton)`
+  && {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+  }
+`;
+
+const StyledInput = styled(Input)`
+  && {
+    color: #fec240;
+    border-color: #fec240;
   }
 `;
 
 function TextMaskCustom(props) {
   const { inputRef, ...other } = props;
-
+  console.log(props);
   return (
     <MaskedInput
       {...other}
@@ -107,61 +121,70 @@ const VoteForm = ({
   email,
   tel,
   chosenCommand,
-  successVote
+  successVote,
+  handleOnChangeTel,
+  handleCloseModal
 }) => (
-  <Wrapper>
-    <StyledContainer>
-      <StyledTitle>{chosenCommand.title}</StyledTitle>
-      <StyledSubTitle>{chosenCommand.projectName}</StyledSubTitle>
-      <form
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          width: "100%"
-        }}
-        onSubmit={handleSubmitVoteForm}
-      >
-        <FormControl margin="normal" required fullWidth>
-          <InputLabel htmlFor="name">Iм'я та прізвище</InputLabel>
-          <Input
-            onChange={handleOnChangeFormFields("name")}
-            name="name"
-            type="name"
-            id="name"
-            autoComplete="name"
-            autoFocus
-            value={name}
-          />
-        </FormControl>
-        <FormControl margin="normal" required fullWidth>
-          <InputLabel htmlFor="email">E-mail</InputLabel>
-          <Input
-            onChange={handleOnChangeFormFields("email")}
-            id="email"
-            name="email"
-            autoComplete="email"
-            value={email}
-            inputProps={{
-              pattern: "[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,4}$"
-            }}
-          />
-        </FormControl>
-        <FormControl margin="normal" required fullWidth>
-          <InputLabel htmlFor="tel">Номер телефону </InputLabel>
-          <Input
-            value={tel}
-            onChange={handleOnChangeFormFields("tel")}
-            id="formatted-text-mask-input"
-            inputComponent={TextMaskCustom}
-          />
-        </FormControl>
-        <StyledButton type="submit" variant="contained" color="primary">
-          голосувати та отримати безкоштовний квиток
-        </StyledButton>
-      </form>
-    </StyledContainer>
-  </Wrapper>
+  <StyledContainer>
+    <StyledIconButton onClick={handleCloseModal}>
+      <CloseIcon />
+    </StyledIconButton>
+    <StyledTitle>{chosenCommand.title}</StyledTitle>
+    <StyledSubTitle>{chosenCommand.projectName}</StyledSubTitle>
+    <form
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        width: "100%"
+      }}
+      onSubmit={handleSubmitVoteForm}
+    >
+      <FormControl margin="normal" required fullWidth>
+        <InputLabel htmlFor="name">Iм'я та прізвище</InputLabel>
+        <Input
+          onChange={handleOnChangeFormFields("name")}
+          name="name"
+          type="name"
+          id="name"
+          autoComplete="name"
+          autoFocus
+          value={name}
+        />
+      </FormControl>
+      <FormControl margin="normal" required fullWidth>
+        <InputLabel htmlFor="email">E-mail</InputLabel>
+        <Input
+          onChange={handleOnChangeFormFields("email")}
+          id="email"
+          name="email"
+          type="email"
+          autoComplete="email"
+          value={email}
+          inputProps={{
+            pattern: "[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,4}$"
+          }}
+        />
+      </FormControl>
+      <FormControl margin="normal" required fullWidth>
+        {/* <InputLabel htmlFor="tel">Номер телефону </InputLabel> */}
+        <MuiPhoneInput
+          defaultCountry="ua"
+          onlyCountries={["ua"]}
+          onChange={handleOnChangeTel("tel")}
+          value={tel}
+          autoFormat={false}
+          required
+          inputProps={{
+            pattern: "^+?3?8?(0(63|73|93|66|95|99|67|68|96|97|98)d{7})$"
+          }}
+        />
+      </FormControl>
+      <StyledButton type="submit" variant="contained" color="primary">
+        голосувати та отримати безкоштовний квиток
+      </StyledButton>
+    </form>
+  </StyledContainer>
 );
 
 export default VoteForm;

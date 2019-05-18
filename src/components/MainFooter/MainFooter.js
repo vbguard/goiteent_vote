@@ -1,8 +1,8 @@
 import React from "react";
 import styled from "styled-components";
 
-import { ReactComponent as FacebookIcon } from "../../assets/images/icons/facebook.svg";
-import { ReactComponent as InstaIcon } from "../../assets/images/icons/instagram.svg";
+import facebookIcon from "../../assets/images/icons/facebook.png";
+import instagramIcon from "../../assets/images/icons/instagram.png";
 
 const Footer = styled.footer`
   display: flex;
@@ -51,12 +51,7 @@ const StyledListSocialItem = styled.li`
   }
 `;
 
-const StyledFacebookIcon = styled(FacebookIcon)`
-  height: 42px;
-  width: 42px;
-`;
-
-const StyledInstaIcon = styled(InstaIcon)`
+const StyledImageIcon = styled.img`
   height: 42px;
   width: 42px;
 `;
@@ -67,13 +62,19 @@ const MainFooter = () => {
       <Text>слідкуйте за нами</Text>
       <StyledListSocial>
         <StyledListSocialItem>
-          <StyledSocialLink href="#">
-            <StyledFacebookIcon />
+          <StyledSocialLink
+            target="blank"
+            href="https://www.facebook.com/GoITeens/"
+          >
+            <StyledImageIcon src={facebookIcon} alt="facebook icon link" />
           </StyledSocialLink>
         </StyledListSocialItem>
         <StyledListSocialItem>
-          <StyledSocialLink href="#">
-            <StyledInstaIcon />
+          <StyledSocialLink
+            target="blank"
+            href="https://www.instagram.com/explore/locations/1726460754272402/goiteens-citycamp"
+          >
+            <StyledImageIcon src={instagramIcon} alt="facebook icon link" />
           </StyledSocialLink>
         </StyledListSocialItem>
       </StyledListSocial>

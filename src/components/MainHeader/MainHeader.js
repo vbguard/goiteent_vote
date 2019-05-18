@@ -83,10 +83,8 @@ const MainHeaderSubTitle = styled.h2`
   font-weight: 400;
   text-fill-color: transparent;
   background-image: url(${textOverlay});
-  background-attachment: fixed;
   -webkit-text-fill-color: transparent;
   -webkit-background-clip: text;
-  mix-blend-mode: screen;
   text-transform: uppercase;
 
   @media (min-width: 768px) {
@@ -103,12 +101,6 @@ const MainHeaderSubTitle = styled.h2`
     font-size: 23px;
   }
 `;
-
-// const MainHeaderSubTitleImage = styled.img.attrs({
-//   src: imgText3x,
-//   srcSet: `${imgText} 1x, ${imgText2x} 2x, ${imgText3x} 3x`,
-//   alt: "Game Of Teens"
-// })``;
 
 const Text = styled.p`
   color: #a7b7c8;
@@ -200,10 +192,7 @@ const MainHeader = () => (
     <MainHeaderTitle>
       <MainHeaderTitleImage />
     </MainHeaderTitle>
-    <MainHeaderSubTitle>
-      подія близько
-      {/* <MainHeaderSubTitleImage /> */}
-    </MainHeaderSubTitle>
+    <MainHeaderSubTitle>подія близько</MainHeaderSubTitle>
     <Text>
       Вже 1 червня розпочнеться грандіозна битва 4-х королівств та розіграш
       <span style={{ color: "#00b6f5" }}> play station 4</span>
