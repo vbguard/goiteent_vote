@@ -19,7 +19,7 @@ const ListItem = styled.li`
   @media (min-width: 768px) {
     width: 530px;
     margin: 0 auto;
-    padding: 15px;
+    padding: 14px;
     flex-direction: row;
     justify-content: space-between;
     border: 1px rgb(0, 183, 248) solid;
@@ -41,6 +41,7 @@ const ListItem = styled.li`
 
     &:nth-child(4n) {
       border-bottom: 1px rgb(0, 183, 248) solid;
+      background-color: #013c4e;
     }
 
     &:nth-child(3n) {
@@ -53,6 +54,7 @@ const ListItem = styled.li`
 
     &:nth-child(3) {
       border-right: none;
+      background-color: #1d232d;
     }
   }
 `;
@@ -63,11 +65,11 @@ const TextContainer = styled.div`
   align-items: center;
 
   @media (min-width: 768px) {
-    width: 305px;
-    height: 145px;
-    flex-direction: column;
-    align-items: flex-start;
-    position: relative;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    margin-left: 18px;
+    align-self: stretch;
   }
 `;
 
@@ -76,11 +78,13 @@ const Image = styled.img`
   height: 180px;
   box-shadow: 1.5px 2.6px 10px 0 rgba(1, 1, 0, 0.2);
   background-color: #00b6f5;
-  object-fit: contain;
+  object-fit: cover;
 
   @media (min-width: 768px) {
+    flex: 0 0 180px;
     width: 180px;
     height: 145px;
+    align-self: flex-start;
   }
 `;
 
@@ -88,7 +92,7 @@ const Title = styled.h3`
   color: #a7b7c8;
   letter-spacing: 0.24px;
   line-height: 1.5;
-  text-align: left;
+  text-align: center;
   font-size: 12px;
   font-family: "GetVoIPGrotesque", sans-serif;
   font-weight: 400;
@@ -98,7 +102,9 @@ const Title = styled.h3`
   text-transform: uppercase;
 
   @media (min-width: 768px) {
+    flex: 0 0 100%;
     margin: 0 0 0.3rem 0;
+    text-align: left;
   }
 `;
 
@@ -114,6 +120,7 @@ const SubTitle = styled.h4`
   margin-bottom: 14px;
 
   @media (min-width: 768px) {
+    flex: 0 0 100%;
     margin: 0 0 0.5rem 0;
     text-align: left;
   }
@@ -126,6 +133,9 @@ const ListTeam = styled.ul`
   padding: 0;
 
   @media (min-width: 768px) {
+    flex: 0 0 50%;
+    justify-self: flex-start;
+    align-self: flex-start;
     margin-bottom: 0;
   }
 `;
@@ -135,12 +145,12 @@ const ListTeamItem = styled.li``;
 const ListTeamItemText = styled.h5`
   margin: 0;
   color: #00b6f5;
-  letter-spacing: 0.6px;
+  letter-spacing: 0.3px;
   line-height: 1.2;
   text-align: center;
   font-size: 12px;
   font-family: Roboto;
-  font-weight: 300;
+  font-weight: 400;
 
   @media (min-width: 768px) {
     text-align: left;
@@ -168,8 +178,8 @@ const StyledButton = styled(({ color, ...other }) => (
   }
 
   @media (min-width: 768px) {
-    bottom: 60px;
-    left: 155px;
+    flex: 0 0 48px;
+    display: inline-block;
   }
 `;
 
@@ -184,10 +194,22 @@ const VoteText = styled.p`
   font-weight: 400;
 
   @media (min-width: 768px) {
-    position: absolute;
-    bottom: 0;
-    right: 35px;
+    flex: 0 0 20px;
     margin: 0;
+    margin-top: 14px;
+  }
+`;
+
+const StyledControl = styled.div`
+  @media (min-width: 768px) {
+    flex: 0 0 100px;
+    align-self: flex-end;
+    justify-self: flex-end;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
   }
 `;
 
@@ -205,13 +227,15 @@ const ListCommandsItem = props => {
             </ListTeamItem>
           ))}
         </ListTeam>
-        <StyledButton
-          type="button"
-          onClick={e => props.handlerOnClickVote(e, props._id)}
-        >
-          {"проголосувати та отримати квиток"}
-        </StyledButton>
-        <VoteText>{props.voted} голосів</VoteText>
+        <StyledControl>
+          <StyledButton
+            type="button"
+            onClick={e => props.handlerOnClickVote(e, props._id)}
+          >
+            {"проголосувати та отримати квиток"}
+          </StyledButton>
+          <VoteText>{props.voted} голосів</VoteText>
+        </StyledControl>
       </TextContainer>
     </ListItem>
   );

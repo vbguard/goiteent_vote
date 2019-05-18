@@ -6,10 +6,10 @@ import MainFooter from "../../components/MainFooter/MainFooter";
 import VoteForm from "../../components/VoteForm/VoteForm";
 import api from "../../service/api";
 import CloseIcon from "@material-ui/icons/Close";
-import CheckCircleIcon from "@material-ui/icons/CheckCircle";
 import IconButton from "@material-ui/core/IconButton";
 import Snackbar from "@material-ui/core/Snackbar";
 import SnackbarContent from "@material-ui/core/SnackbarContent";
+import Modal from "@material-ui/core/Modal";
 
 import bgImage3x from "../../assets/images/bgImage@3x.png";
 import bgOverlay from "../../assets/images/bgOverlay.png";
@@ -33,7 +33,17 @@ const MainWrapper = styled.div`
     background-position: center, center;
     background-size: cover, cover;
     position: relative;
+    min-height: 100vh;
   }
+`;
+
+const StyledFetchErrorText = styled.h3`
+  font-family: GetVoIPGrotesque;
+  font-size: 14px;
+  line-height: 25px;
+  letter-spacing: 1.3px;
+  text-align: center;
+  color: #a7b7c8;
 `;
 
 class MainPage extends Component {
@@ -44,35 +54,43 @@ class MainPage extends Component {
     name: "",
     email: "",
     tel: "",
-    successVote: false
+    successVote: false,
+    fetchError: null
   };
 
   componentDidMount() {
-    console.log(api);
-    api.getCommands().then(data => {
-      this.setState({
-        commands: data.commands
+    api
+      .getCommands()
+      .then(data => {
+        this.setState({
+          commands: data.commands
+        });
+      })
+      .catch(err => {
+        this.setState({
+          fetchError: err
+        });
       });
-    });
   }
 
   handlerOnClickVote = (e, id) => {
     e.preventDefault();
-    this.setState(
-      state => {
-        const chosen = state.commands.filter(command => id === command._id);
-        return {
-          ...state,
-          chosenCommand: { ...chosen[0] },
-          isModalOpen: !state.isModalOpen
-        };
-      },
-      () => console.log(this.state.chosenCommand)
-    );
+    this.setState(state => {
+      const chosen = state.commands.filter(command => id === command._id);
+      return {
+        ...state,
+        chosenCommand: { ...chosen[0] },
+        isModalOpen: !state.isModalOpen
+      };
+    });
   };
 
   handleOnChangeFormFields = name => event => {
     this.setState({ [name]: event.target.value });
+  };
+
+  handleOnChangeTel = name => event => {
+    this.setState({ [name]: event });
   };
 
   handleSubmitVoteForm = e => {
@@ -86,19 +104,26 @@ class MainPage extends Component {
       vote: chosenCommand._id
     };
     console.log(data);
-    api.vote(chosenCommand._id, data).then(res => {
-      this.setState(
-        {
-          name: "",
-          email: "",
-          tel: "",
-          isModalOpen: false,
-          successVote: res.data.success,
-          commands: res.data.commands
-        },
-        () => setTimeout(() => {}, 2000)
-      );
-    });
+    api
+      .vote(chosenCommand._id, data)
+      .then(res => {
+        this.setState(
+          {
+            name: "",
+            email: "",
+            tel: "",
+            isModalOpen: false,
+            successVote: res.data.success,
+            commands: res.data.commands
+          },
+          () => setTimeout(() => {}, 2000)
+        );
+      })
+      .catch(err => {
+        this.setState({
+          fetchError: err
+        });
+      });
   };
 
   handleCloseSnack = () => {
@@ -107,11 +132,11 @@ class MainPage extends Component {
     });
   };
 
-  // handleCloseModal = () => {
-  //   this.setState({
-  //     isModalOpen: false;
-  //   })
-  // };
+  handleCloseModal = () => {
+    this.setState({
+      isModalOpen: false
+    });
+  };
 
   render() {
     const {
@@ -121,7 +146,8 @@ class MainPage extends Component {
       name,
       email,
       tel,
-      successVote
+      successVote,
+      fetchError
     } = this.state;
     return (
       <StyledMainPage>
@@ -150,20 +176,62 @@ class MainPage extends Component {
             ]}
           />
         </Snackbar>
-        {isModalOpen && (
+        <Snackbar
+          anchorOrigin={{
+            vertical: "bottom",
+            horizontal: "center"
+          }}
+          open={fetchError}
+          autoHideDuration={3000}
+          onClose={this.handleCloseSnack}
+        >
+          <SnackbarContent
+            aria-describedby="client-snackbar"
+            message={<span id="client-snackbar">{fetchError}</span>}
+            action={[
+              <IconButton
+                key="close"
+                aria-label="Close"
+                onClick={this.handleCloseSnack}
+              >
+                <CloseIcon />
+              </IconButton>
+            ]}
+          />
+        </Snackbar>
+        <Modal
+          aria-labelledby="simple-modal-title"
+          aria-describedby="simple-modal-description"
+          open={isModalOpen}
+          onClose={this.handleCloseModal}
+        >
           <VoteForm
             successVote={successVote}
             chosenCommand={chosenCommand}
             handleSubmitVoteForm={this.handleSubmitVoteForm}
             handleOnChangeFormFields={this.handleOnChangeFormFields}
+            handleCloseModal={this.handleCloseModal}
+            handleOnChangeTel={this.handleOnChangeTel}
           />
-        )}
+        </Modal>
         <MainWrapper>
           <MainHeader />
-          <ListCommands
-            commands={commands}
-            handlerOnClickVote={this.handlerOnClickVote}
-          />
+          {commands.length === 0 ? (
+            <>
+              <StyledFetchErrorText>
+                Виникла проблемка при завантаженні данних 🤪. Перегрузіть
+                сторінку Будь-Ласка
+              </StyledFetchErrorText>
+            </>
+          ) : (
+            <>
+              <ListCommands
+                commands={commands}
+                handlerOnClickVote={this.handlerOnClickVote}
+              />
+            </>
+          )}
+
           <MainFooter />
         </MainWrapper>
       </StyledMainPage>
