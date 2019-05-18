@@ -1,1 +1,0 @@
-# goiteent_vote
