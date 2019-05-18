@@ -52,6 +52,7 @@
     "react-dom": "^16.8.6",
     "react-hot-loader": "^4.8.5",
     "react-router-dom": "^5.0.0",
+    "react-text-mask": "^5.4.3",
     "resolve": "1.10.0",
     "sass-loader": "7.1.0",
     "semver": "6.0.0",
@@ -137,5 +138,6 @@
     "presets": [
       "react-app"
     ]
-  }
+  },
+  "homepage": "https://vote.vbguard.dev"
 }

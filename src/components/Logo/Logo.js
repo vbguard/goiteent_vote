@@ -2,10 +2,13 @@ import React from "react";
 import styled from "styled-components";
 import { ReactComponent as ImageLogo } from "../../assets/images/logo/go-iteens-logo.svg";
 
-const LogoLink = styled.a`
+const LogoLink = styled.a.attrs({
+  href: "http://192.168.4.44:3000"
+})`
   display: flex;
   justify-content: center;
   color: none;
+  cursor: pointer;
 `;
 const LogoImage = styled(ImageLogo)`
   width: 114px;

@@ -10,6 +10,8 @@ const instance = axios.create({
 
 const getCommands = () => instance.get("/commands").then(res => res.data);
 
+const vote = (id, data) => instance.post(`/vote/${id}`, data);
 export default {
-  getCommands
+  getCommands,
+  vote
 };
