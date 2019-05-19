@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
-
+import ReactGA from "react-ga";
+import { logEvent } from "../../utils/analytic";
 import facebookIcon from "../../assets/images/icons/facebook.png";
 import instagramIcon from "../../assets/images/icons/instagram.png";
 
@@ -13,6 +14,8 @@ const Footer = styled.footer`
   align-items: center;
   height: 121px;
   background-image: url(${bgImage});
+  background-repeat: no-repeat;
+  background-size: cover;
 
   @media (min-width: 768px) {
     background-image: none;
@@ -47,7 +50,7 @@ const StyledListSocial = styled.ul`
   display: flex;
 `;
 
-const StyledSocialLink = styled.a`
+const StyledSocialLink = styled(ReactGA.OutboundLink)`
   color: none;
 `;
 
@@ -62,6 +65,13 @@ const StyledImageIcon = styled.img`
   width: 42px;
 `;
 
+const handlerOnClickLink = () => {
+  logEvent({
+    category: "Social go",
+    action: "Click on link to social"
+  });
+};
+
 const MainFooter = () => {
   return (
     <Footer>
@@ -69,16 +79,20 @@ const MainFooter = () => {
       <StyledListSocial>
         <StyledListSocialItem>
           <StyledSocialLink
-            target="blank"
-            href="https://www.facebook.com/GoITeens/"
+            eventLabel={"User Go to facebook GoITeens"}
+            target="_blank"
+            to="https://www.facebook.com/GoITeens/"
+            onClick={() => handlerOnClickLink()}
           >
             <StyledImageIcon src={facebookIcon} alt="facebook icon link" />
           </StyledSocialLink>
         </StyledListSocialItem>
         <StyledListSocialItem>
           <StyledSocialLink
-            target="blank"
-            href="https://www.instagram.com/explore/locations/1726460754272402/goiteens-citycamp"
+            eventLabel={"User Go to instagram GoITeens"}
+            to="https://www.instagram.com/go_iteens/"
+            target="_blank"
+            onClick={() => handlerOnClickLink()}
           >
             <StyledImageIcon src={instagramIcon} alt="facebook icon link" />
           </StyledSocialLink>
