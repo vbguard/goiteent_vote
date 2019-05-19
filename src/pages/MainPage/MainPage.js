@@ -187,7 +187,7 @@ class MainPage extends Component {
         >
           <SnackbarContent
             aria-describedby="client-snackbar"
-            message={<span id="client-snackbar">{"Ви уже проголосували"}</span>}
+            message={<span id="client-snackbar">{"Ви уже голосували"}</span>}
             action={[
               <IconButton
                 key="close"
