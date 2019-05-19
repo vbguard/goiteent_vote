@@ -52,6 +52,7 @@
     "react-app-polyfill": "^1.0.1",
     "react-dev-utils": "^9.0.1",
     "react-dom": "^16.8.6",
+    "react-ga": "2.5.7",
     "react-hot-loader": "^4.8.5",
     "react-router-dom": "^5.0.0",
     "react-text-mask": "^5.4.3",
