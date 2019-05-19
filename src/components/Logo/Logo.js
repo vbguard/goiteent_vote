@@ -22,7 +22,6 @@ const LogoImage = styled(ImageLogo)`
   filter: drop-shadow(0px 0px 20px #fec240);
   z-index: 1;
 `;
-const LogoText = styled.h1``;
 
 const Logo = () => (
   <LogoLink>
