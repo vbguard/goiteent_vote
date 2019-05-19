@@ -11,6 +11,7 @@ const ListItem = styled.li`
   display: flex;
   flex-direction: column;
   align-items: center;
+  z-index: 2;
 
   &:nth-child(2n) {
     background-color: #1d232d;

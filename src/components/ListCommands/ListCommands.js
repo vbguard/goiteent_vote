@@ -6,6 +6,8 @@ const ListStyled = styled.ul`
   list-style: none;
   margin: 0;
   padding: 0;
+  z-index: 2;
+  position: relative;
 
   @media (min-width: 1200px) {
     width: 1060px;

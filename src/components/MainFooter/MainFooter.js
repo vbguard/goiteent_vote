@@ -16,6 +16,7 @@ const Footer = styled.footer`
   background-image: url(${bgImage});
   background-repeat: no-repeat;
   background-size: cover;
+  position: relative;
 
   @media (min-width: 768px) {
     background-image: none;

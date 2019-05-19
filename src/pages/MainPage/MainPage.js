@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import styled from "styled-components";
-import { initGA, logEvent, logPageView } from "../../utils/analytic";
 import MainHeader from "../../components/MainHeader/MainHeader";
 import ListCommands from "../../components/ListCommands/ListCommands";
 import MainFooter from "../../components/MainFooter/MainFooter";
@@ -19,13 +18,25 @@ import bgOverlay1200 from "../../assets/images/1200/overlay1200.png";
 const StyledMainPage = styled.div``;
 
 const MainWrapper = styled.div`
+  position: relative;
+
   @media (min-width: 768px) {
     background: url(${bgOverlay}), url(${bgImag1200});
     background-blend-mode: overlay, normal;
     background-repeat: no-repeat, no-repeat;
     background-position: center, center;
     background-size: cover, cover;
-    position: relative;
+
+    &::before {
+      content: "";
+      position: absolute;
+      display: block;
+      top: 0;
+      left: 0;
+      background-color: #06111780;
+      width: 100%;
+      height: 100%;
+    }
   }
   @media (min-width: 1200px) {
     background: url(${bgOverlay1200}), url(${bgImag1200});
@@ -45,6 +56,7 @@ const StyledFetchErrorText = styled.h3`
   letter-spacing: 1.3px;
   text-align: center;
   color: #a7b7c8;
+  z-index: 2;
 `;
 
 class MainPage extends Component {
@@ -60,8 +72,6 @@ class MainPage extends Component {
   };
 
   componentDidMount() {
-    initGA();
-    logPageView();
     api
       .getCommands()
       .then(data => {
@@ -78,10 +88,6 @@ class MainPage extends Component {
 
   handlerOnClickVote = (e, id) => {
     e.preventDefault();
-    logEvent({
-      category: "Form",
-      action: "Click on vote btn to submit vote"
-    });
     this.setState(state => {
       const chosen = state.commands.filter(command => id === command._id);
       return {
@@ -93,27 +99,16 @@ class MainPage extends Component {
   };
 
   handleOnChangeFormFields = name => event => {
-    logEvent({
-      category: "Form",
-      action: "Change input value"
-    });
     this.setState({ [name]: event.target.value });
   };
 
   handleOnChangeTel = name => event => {
-    logEvent({
-      category: "Form",
-      action: "Write number"
-    });
     this.setState({ [name]: event });
   };
 
   handleSubmitVoteForm = e => {
     e.preventDefault();
-    logEvent({
-      category: "User",
-      action: "Submit form to vote"
-    });
+
     const { name, email, tel, chosenCommand } = this.state;
     const data = {
       name,
@@ -121,6 +116,7 @@ class MainPage extends Component {
       tel,
       vote: chosenCommand._id
     };
+    console.log(data);
     api
       .vote(chosenCommand._id, data)
       .then(res => {
@@ -138,37 +134,18 @@ class MainPage extends Component {
       })
       .catch(err => {
         this.setState({
-          isModalOpen: false,
-          fetchError: err.response.data.error
+          fetchError: err
         });
       });
   };
 
   handleCloseSnack = () => {
-    logEvent({
-      category: "Notification",
-      action: "Close notification of success vote"
-    });
     this.setState({
       successVote: false
     });
   };
 
-  handleCloseSnackError = () => {
-    logEvent({
-      category: "Notification",
-      action: "Close notification of Error vote"
-    });
-    this.setState({
-      fetchError: null
-    });
-  };
-
   handleCloseModal = () => {
-    logEvent({
-      category: "Modal",
-      action: "Click in modal Close button"
-    });
     this.setState({
       isModalOpen: false
     });
@@ -179,6 +156,9 @@ class MainPage extends Component {
       commands,
       isModalOpen,
       chosenCommand,
+      name,
+      email,
+      tel,
       successVote,
       fetchError
     } = this.state;
@@ -195,9 +175,7 @@ class MainPage extends Component {
         >
           <SnackbarContent
             aria-describedby="client-snackbar"
-            message={
-              <span id="client-snackbar">{"Ви успішно проголосували!"}</span>
-            }
+            message={<span id="client-snackbar">{"Ви вже голосували!"}</span>}
             action={[
               <IconButton
                 key="close"
@@ -214,9 +192,9 @@ class MainPage extends Component {
             vertical: "bottom",
             horizontal: "center"
           }}
-          open={!!fetchError}
+          open={fetchError}
           autoHideDuration={3000}
-          onClose={this.handleCloseSnackError}
+          onClose={this.handleCloseSnack}
         >
           <SnackbarContent
             aria-describedby="client-snackbar"
@@ -225,7 +203,7 @@ class MainPage extends Component {
               <IconButton
                 key="close"
                 aria-label="Close"
-                onClick={this.handleCloseSnackError}
+                onClick={this.handleCloseSnack}
               >
                 <CloseIcon />
               </IconButton>
@@ -252,15 +230,8 @@ class MainPage extends Component {
           {commands.length === 0 ? (
             <>
               <StyledFetchErrorText>
-                {"Виникла проблемка при завантаженні данних"}{" "}
-                <span role="img" aria-label="emoji">
-                  🤪
-                </span>
-                {"."}
-                {"Перегрузітьсторінку будь-ласка"}{" "}
-                <span role="img" aria-label="emoji">
-                  😃
-                </span>
+                Виникла проблемка при завантаженні данних 🤪. Перегрузіть
+                сторінку будь-ласка
               </StyledFetchErrorText>
             </>
           ) : (

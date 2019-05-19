@@ -1,25 +1,13 @@
 import React from "react";
 import styled from "styled-components";
-
 import Logo from "../Logo/Logo";
-
-// import img from "../../assets/images/gameOfTeens.png";
-// import img2x from "../../assets/images/gameOfTeens@2x.png";
-// import img3x from "../../assets/images/gameOfTeens@3x.png";
-// import imgText from "../../assets/images/fireTextPodiya.png";
-// import imgText2x from "../../assets/images/fireTextPodiya@2x.png";
-// import imgText3x from "../../assets/images/fireTextPodiya@3x.png";
 import textOverlay from "../../assets/images/fireTextPodiya.jpg";
-
-// import img720 from "../../assets/images/720/game-of-teens720.png";
-// import img720_2x from "../../assets/images/720/game-of-teens720@2x.png";
-// import img720_3x from "../../assets/images/720/game-of-teens720@3x.png";
-
 import imgText1200 from "../../assets/images/1200/Game of Teens logo1200@3x.png";
 
 const Header = styled.header`
+  position: relative;
   width: 100%;
-  background: #061117;
+  background: #3e3b40;
   padding-bottom: 36px;
   padding-top: 32px;
   padding-left: 34px;
@@ -27,10 +15,24 @@ const Header = styled.header`
   display: flex;
   flex-direction: column;
   align-items: center;
+  &::before {
+    content: "";
+    position: absolute;
+    display: block;
+    top: 0;
+    left: 0;
+    background-color: #06111780;
+    width: 100%;
+    height: 100%;
+  }
 
   @media (min-width: 768px) {
     padding-bottom: 20px;
     background: transparent;
+
+    &::before {
+      display: none;
+    }
   }
 
   @media (min-width: 1200px) {
@@ -46,6 +48,7 @@ const MainHeaderTitle = styled.h1`
   margin-bottom: 34px;
   padding: 0;
   text-align: center;
+  z-index: 2;
 
   @media (min-width: 1200px) {
     margin-top: 0;
@@ -55,7 +58,6 @@ const MainHeaderTitle = styled.h1`
 
 const MainHeaderTitleImage = styled.img.attrs({
   src: imgText1200,
-  // srcSet: `${img} 1x, ${img2x} 2x, ${img3x} 3x`,
   alt: "Game Of Teens"
 })`
   @media (min-width: 768px) {
@@ -86,6 +88,7 @@ const MainHeaderSubTitle = styled.h2`
   -webkit-text-fill-color: transparent;
   -webkit-background-clip: text;
   text-transform: uppercase;
+  z-index: 2;
 
   @media (min-width: 768px) {
     width: 260px;
@@ -111,6 +114,7 @@ const Text = styled.p`
   font-family: GetVoIPGrotesque;
   font-weight: 400;
   text-transform: uppercase;
+  z-index: 2;
 
   @media (min-width: 768px) {
     width: 526px;
@@ -135,6 +139,7 @@ const ListStyled = styled.ul`
   flex-direction: column;
   justify-content: center;
   align-content: center;
+  z-index: 2;
 
   @media (min-width: 1200px) {
     width: 1060px;
