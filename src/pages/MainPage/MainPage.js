@@ -175,11 +175,19 @@ class MainPage extends Component {
         >
           <SnackbarContent
             aria-describedby="client-snackbar"
-            message={<span id="client-snackbar">{"Ви вже голосували!"}</span>}
+            color="primary"
+            message={
+              <span id="client-snackbar">
+                {
+                  "Дякуємо, Ваше запрошення надійде на електронну пошту впродовж 24 годин"
+                }
+              </span>
+            }
             action={[
               <IconButton
                 key="close"
                 aria-label="Close"
+                color="secondary"
                 onClick={this.handleCloseSnack}
               >
                 <CloseIcon />
