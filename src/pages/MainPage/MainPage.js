@@ -120,20 +120,21 @@ class MainPage extends Component {
     api
       .vote(chosenCommand._id, data)
       .then(res => {
-        this.setState(
-          {
-            name: "",
-            email: "",
-            tel: "",
-            isModalOpen: false,
-            successVote: res.data.success,
-            commands: res.data.commands
-          },
-          () => setTimeout(() => {}, 2000)
-        );
+        this.setState({
+          name: "",
+          email: "",
+          tel: "",
+          isModalOpen: false,
+          successVote: res.data.success,
+          commands: res.data.commands
+        });
       })
       .catch(err => {
         this.setState({
+          name: "",
+          email: "",
+          tel: "",
+          isModalOpen: false,
           fetchError: err
         });
       });
@@ -142,6 +143,12 @@ class MainPage extends Component {
   handleCloseSnack = () => {
     this.setState({
       successVote: false
+    });
+  };
+
+  handleCloseSnackError = () => {
+    this.setState({
+      fetchError: null
     });
   };
 
@@ -202,7 +209,7 @@ class MainPage extends Component {
           }}
           open={fetchError}
           autoHideDuration={3000}
-          onClose={this.handleCloseSnack}
+          onClose={this.handleCloseSnackError}
         >
           <SnackbarContent
             aria-describedby="client-snackbar"
@@ -211,7 +218,7 @@ class MainPage extends Component {
               <IconButton
                 key="close"
                 aria-label="Close"
-                onClick={this.handleCloseSnack}
+                onClick={this.handleCloseSnackError}
               >
                 <CloseIcon />
               </IconButton>
